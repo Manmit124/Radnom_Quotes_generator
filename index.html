@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="wrapper">
+
+     
+    <div class="container">
+     
+        <div  class="innner">
+            <h1>Random Quotes</h1>
+         <div class="quotes-container">
+    <div class="quotes" id="quotes"></div>
+    <div class="author" id="author"></div>
+         </div>
+    <button class="button" class="newQ" id="newQ">New Quotes</button>
+
+</div>
+</div>
+    </div>
+
+    <script>
+const quotes =document.getElementById("quotes");
+const author =document.getElementById("author");
+const newQ =document.getElementById("newQ");
+let realData ="";
+let quotesdata="";
+const getnewQuotes = () =>{
+    let rnum=Math.floor(Math.random()*10);
+
+    quotesdata=realData[rnum];
+    quotes.innerText= `${quotesdata.text}`;
+    quotesdata.author==null
+    ?( author.innerText="unknown")
+    :( author.innerText= `${quotesdata.author}`);
+   
+   
+};
+const getQuotes =async() =>{
+    const api="https://type.fit/api/quotes";
+    try {
+        let data= await fetch(api);
+        realData = await data.json();
+        getnewQuotes();
+        // console.log(realData[0].text);
+    } catch (error) {
+
+        
+    }
+}
+
+newQ.addEventListener("click",getnewQuotes);
+
+ getQuotes();
+
+    </script>
+
+
+</body>
+</html>
